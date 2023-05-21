@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PopupWithForms = ({ formName, formTitle, isOpen, buttonText, children }) => {
+export const PopupWithForms = ({ formName, formTitle, isOpen, onClose, buttonText, children }) => {
     let className = `popup popup_type_${formName}`
 
     if (isOpen) {
@@ -10,7 +10,7 @@ export const PopupWithForms = ({ formName, formTitle, isOpen, buttonText, childr
     return (
         <div className={className}>
             <div className="popup__container">
-                <button className="popup__close-cross" type="button" aria-label="Закрыть"></button>
+                <button className="popup__close-cross" type="button" aria-label="Закрыть" onClick={onClose}></button>
                 <form name={formName} className={`popup__form popup__form_${formName}`} noValidate>
                     <h2 className="popup__title">{formTitle}</h2>
                     {children}

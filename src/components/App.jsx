@@ -14,6 +14,12 @@ export const App = () => {
     const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
     const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
 
+    const closeAllPopups = () => {
+        setIsEditProfilePopupOpen(false);
+        setIsAddPlacePopupOpen(false);
+        setisEditAvatarPopupOpen(false);
+    }
+
     return (
         <div className="page">
             <div className="content">
@@ -26,6 +32,7 @@ export const App = () => {
                 <PopupWithForms
                     formName={'confirm'}
                     formTitle={'Вы уверены?'}
+                    onClose={closeAllPopups}
                     buttonText={'Да'}
                 >
                 </PopupWithForms>
@@ -33,6 +40,7 @@ export const App = () => {
                     formName={'profile'}
                     formTitle={'Редактировать профиль'}
                     isOpen={isEditProfilePopupOpen}
+                    onClose={closeAllPopups}
                     buttonText={'Сохранить'}
                 >
                     <input id="name" name="name" className="popup__input popup__input_type_name" placeholder="Ваше имя" required
@@ -46,6 +54,7 @@ export const App = () => {
                     formName={'avatar'}
                     formTitle={'Обновить аватар'}
                     isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
                     buttonText={'Сохранить'}
                 >
                     <input id="avatar" type="url" name="avatar" className="popup__input popup__input_type_avatar-link"
@@ -56,6 +65,7 @@ export const App = () => {
                     formName={'add-card'}
                     formTitle={'Новое место'}
                     isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
                     buttonText={'Создать'}
                 >
                     <input id="card-name" name="name" className="popup__input popup__input_type_card-name" placeholder="Название"
