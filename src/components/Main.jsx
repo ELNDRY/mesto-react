@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { api } from '../utils/Api'
+import { api } from '../utils/api'
 import { Card } from './Card';
 
 export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) => {
@@ -24,7 +24,7 @@ export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) =
             <section className="profile">
                 <div className="profile__container">
                     <div className="profile__avatar-overlay" onClick={onEditAvatar}>
-                        <img className="profile__avatar" alt='Аватар профиля' style={{ backgroundImage: `url(${userAvatar})` }} />
+                        <img className="profile__avatar" style={{ backgroundImage: `url(${userAvatar})` }} />
                     </div>
                     <div className="profile__info">
                         <div className="profile__name-container">
@@ -38,7 +38,7 @@ export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) =
             </section>
             <section className="elements">
                 <ul className="elements__list">
-                    {cards.map(card => <Card  card={card} onCardClick={onCardClick} />)}
+                    {cards.map(card => <Card key={card._id} card={card} onCardClick={onCardClick} />)}
                 </ul>
             </section>
         </main>

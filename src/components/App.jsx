@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Main } from './Main'
-import { PopupWithForms } from './PopupWithForm'
+import { PopupWithForm } from './PopupWithForm'
 import { ImagePopup } from './ImagePopup'
 
 export const App = () => {
@@ -34,14 +34,14 @@ export const App = () => {
                     onCardClick={handleCardClick}
                 />
                 <Footer />
-                <PopupWithForms
+                <PopupWithForm
                     formName={'confirm'}
                     formTitle={'Вы уверены?'}
                     onClose={closeAllPopups}
                     buttonText={'Да'}
                 >
-                </PopupWithForms>
-                <PopupWithForms
+                </PopupWithForm>
+                <PopupWithForm
                     formName={'profile'}
                     formTitle={'Редактировать профиль'}
                     isOpen={isEditProfilePopupOpen}
@@ -54,8 +54,8 @@ export const App = () => {
                     <input id="about" name="about" className="popup__input popup__input_type_description" placeholder="О себе" required
                         minLength="2" maxLength="200" />
                     <span className="popup__input-error about-error"></span>
-                </PopupWithForms>
-                <PopupWithForms
+                </PopupWithForm>
+                <PopupWithForm
                     formName={'avatar'}
                     formTitle={'Обновить аватар'}
                     isOpen={isEditAvatarPopupOpen}
@@ -65,8 +65,8 @@ export const App = () => {
                     <input id="avatar" type="url" name="avatar" className="popup__input popup__input_type_avatar-link"
                         placeholder="Ссылка на картинку" required />
                     <span className="popup__input-error avatar-error"></span>
-                </PopupWithForms>
-                <PopupWithForms
+                </PopupWithForm>
+                <PopupWithForm
                     formName={'add-card'}
                     formTitle={'Новое место'}
                     isOpen={isAddPlacePopupOpen}
@@ -79,7 +79,7 @@ export const App = () => {
                     <input id="card-link" type="url" name="link" className="popup__input popup__input_type_card-link"
                         placeholder="Ссылка на картинку" required />
                     <span className="popup__input-error card-link-error"></span>
-                </PopupWithForms>
+                </PopupWithForm>
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
             </div>
         </div>

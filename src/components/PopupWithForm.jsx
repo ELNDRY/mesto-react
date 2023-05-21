@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PopupWithForms = ({ formName, formTitle, isOpen, onClose, buttonText, children }) => {
+export const PopupWithForm = ({ formName, formTitle, isOpen, onClose, buttonText, children }) => {
     let className = `popup popup_type_${formName}`
 
     if (isOpen) {
