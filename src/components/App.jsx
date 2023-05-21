@@ -3,21 +3,25 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { Main } from './Main'
 import { PopupWithForms } from './PopupWithForm'
+import { ImagePopup } from './ImagePopup'
 
 export const App = () => {
 
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
+    const [selectedCard, setSelectedCard] = useState(null);
 
     const handleEditAvatarClick = () => setisEditAvatarPopupOpen(true);
     const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
     const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
+    const handleCardClick = (card) => setSelectedCard(card);
 
     const closeAllPopups = () => {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setisEditAvatarPopupOpen(false);
+        setSelectedCard(null);
     }
 
     return (
@@ -27,6 +31,7 @@ export const App = () => {
                 <Main onEditProfile={handleEditProfileClick}
                     onEditAvatar={handleEditAvatarClick}
                     onAddPlace={handleAddPlaceClick}
+                    onCardClick={handleCardClick}
                 />
                 <Footer />
                 <PopupWithForms
@@ -75,20 +80,8 @@ export const App = () => {
                         placeholder="Ссылка на картинку" required />
                     <span className="popup__input-error card-link-error"></span>
                 </PopupWithForms>
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
             </div>
-            <template id="element-template">
-                <li className="element">
-                    <button className="element__delete" type="button" aria-label="Удалить"></button>
-                    <img className="element__image" />
-                    <div className="element__container">
-                        <h2 className="element__text"></h2>
-                        <div className="element__wrapper">
-                            <button className="element__like" type="button" aria-label="Нравится"></button>
-                            <span className="element__counter"></span>
-                        </div>
-                    </div>
-                </li>
-            </template>
         </div>
     )
 }
