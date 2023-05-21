@@ -1,7 +1,7 @@
 # Project: Mesto-react
 An interactive page where you edit your profile, add photos, delete them and like them.
 
-## You can view the project by following the [:link:link](https://elndry.github.io/mesto-react/)
+## You can view the project by following the [:link](https://elndry.github.io/mesto-react/)
 * [Link to the project layout](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
 ## Project structure
