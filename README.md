@@ -1,4 +1,4 @@
-# Project: Mesto
+# Project: Mesto-react
 An interactive page where you edit your profile, add photos, delete them and like them.
 
 ## You can view the project by following the [:link:link](https://elndry.github.io/mesto-react/)
