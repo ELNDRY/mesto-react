@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PopupImage = () => {
+export const ImagePopup = () => {
     return (
         <div className="popup popup_type_image">
             <div className="popup__container">
