@@ -1,7 +1,11 @@
 import React from 'react'
 
-export const PopupWithForms = ({ formName, formTitle, children }) => {
-    let className = `popup popup_type_${props.formName}`
+export const PopupWithForms = ({ formName, formTitle, isOpen, buttonText, children }) => {
+    let className = `popup popup_type_${formName}`
+
+    if (isOpen) {
+        className += ' popup_active';
+    }
 
     return (
         <div className={className}>
@@ -10,7 +14,7 @@ export const PopupWithForms = ({ formName, formTitle, children }) => {
                 <form name={formName} className={`popup__form popup__form_${formName}`} noValidate>
                     <h2 className="popup__title">{formTitle}</h2>
                     {children}
-                    <button aria-label="Сохранить" className="popup__submit-button" type="submit">Да</button>
+                    <button aria-label={buttonText} className="popup__submit-button" type="submit">{buttonText}</button>
                 </form>
             </div>
         </div>
