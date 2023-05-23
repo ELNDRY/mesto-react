@@ -24,7 +24,7 @@ export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) =
             <section className="profile">
                 <div className="profile__container">
                     <div className="profile__avatar-overlay" onClick={onEditAvatar}>
-                        <img className="profile__avatar" style={{ backgroundImage: `url(${userAvatar})` }} />
+                        <div className="profile__avatar" style={{ backgroundImage: `url(${userAvatar})` }} />
                     </div>
                     <div className="profile__info">
                         <div className="profile__name-container">
