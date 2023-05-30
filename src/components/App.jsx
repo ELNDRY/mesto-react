@@ -23,7 +23,7 @@ export const App = () => {
 
     useEffect(() => {
         Promise.all([api.getUserInfo()])
-            .then((userInfo) => {
+            .then(([userInfo]) => {
                 setCurrentUser(userInfo);
             })
             .catch((err) => {

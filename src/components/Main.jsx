@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { api } from '../utils/api'
 import { Card } from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) => {
-    const [userName, setuserName] = useState(null);
-    const [userDescription, setuserDescription] = useState(null);
-    const [userAvatar, setuserAvatar] = useState(null);
     const [cards, setCards] = useState([]);
+    
+    const currentUser = useContext(CurrentUserContext);
 
     useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([info, initialCards]) => {
-                setuserName(info.name);
-                setuserDescription(info.about);
-                setuserAvatar(info.avatar)
+        Promise.all([api.getInitialCards()])
+            .then(([initialCards]) => {
                 setCards(initialCards);
             })
             .catch(error => console.log(error));
@@ -24,14 +21,14 @@ export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) =
             <section className="profile">
                 <div className="profile__container">
                     <div className="profile__avatar-overlay" onClick={onEditAvatar}>
-                        <div className="profile__avatar" style={{ backgroundImage: `url(${userAvatar})` }} />
+                        <div className="profile__avatar" style={{ backgroundImage: `url(${currentUser?.avatar})` }} />
                     </div>
                     <div className="profile__info">
                         <div className="profile__name-container">
-                            <h1 className="profile__name">{userName}</h1>
+                            <h1 className="profile__name">{currentUser?.name}</h1>
                             <button className="profile__edit-button" type="button" aria-label="Редактировать" onClick={onEditProfile}/>
                         </div>
-                        <p className="profile__description">{userDescription}</p>
+                        <p className="profile__description">{currentUser?.about}</p>
                     </div>
                 </div>
                 <button className="profile__add-button" type="button" aria-label="Добавить" onClick={onAddPlace}/>
