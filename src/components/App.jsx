@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { Main } from './Main'
 import { PopupWithForm } from './PopupWithForm'
 import { ImagePopup } from './ImagePopup'
+import { api } from '../utils/api'
 
 export const App = () => {
 
@@ -16,6 +17,18 @@ export const App = () => {
     const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
     const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
     const handleCardClick = (card) => setSelectedCard(card);
+
+    const [currentUser, setCurrentUser] = useState(null);
+
+    useEffect(() => {
+        Promise.all([api.getUserInfo()])
+        .then((userInfo) => {
+            setCurrentUser(userInfo);
+        })
+        .catch((err) => {
+            console.error(`Ошибка: ${err}`);
+        })
+    })
 
     const closeAllPopups = () => {
         setIsEditProfilePopupOpen(false);
