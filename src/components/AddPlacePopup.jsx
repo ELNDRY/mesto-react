@@ -37,10 +37,10 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
         onSubmit={handleSubmit}
     >
         <input id="card-name" name="name" className="popup__input popup__input_type_card-name" placeholder="Название"
-            required minLength="2" maxLength="30" onChange={handleNameChange} />
+            required minLength="2" maxLength="30" onChange={handleNameChange} value={name || ''} />
         <span className="popup__input-error card-name-error"></span>
         <input id="card-link" type="url" name="link" className="popup__input popup__input_type_card-link"
-            placeholder="Ссылка на картинку" required onChange={handleLinkChange} />
+            placeholder="Ссылка на картинку" required onChange={handleLinkChange} value={link || ''} />
         <span className="popup__input-error card-link-error"></span>
     </PopupWithForm>)
 }

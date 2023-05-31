@@ -17,28 +17,10 @@ export const App = () => {
     const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
 
-
     const handleEditAvatarClick = () => setisEditAvatarPopupOpen(true);
     const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
     const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
     const handleCardClick = (card) => setSelectedCard(card);
-    const handleCardLike = (card) => {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
-        api.changeLikeCardStatus(card._id, isLiked)
-            .then((newCard) => {
-                setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
-            });
-    }
-    const handleCardDelete = (card) => {
-        api.deleteCard(card._id)
-            .then(() => {
-                const updateCards = cards.filter((c) => card._id !== c._id);
-                setCards(updateCards);
-            })
-    }
-
-    const [currentUser, setCurrentUser] = useState(null);
-    const [cards, setCards] = useState([]);
 
     useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -47,9 +29,36 @@ export const App = () => {
                 setCards(initialCards);
             })
             .catch((err) => {
-                console.error(`Ошибка: ${err}`);
+                console.error(err);
             })
-    })
+    }, [])
+
+    const handleCardLike = (card) => {
+        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        api.changeLikeCardStatus(card._id, isLiked)
+            .then((newCard) => {
+                const updateCards = cards.map(c => c._id === newCard._id ? newCard : c)
+                setCards(updateCards);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+
+    }
+    const handleCardDelete = (card) => {
+        api.deleteCard(card._id)
+            .then(() => {
+                const updateCards = cards.filter((c) => card._id !== c._id);
+                setCards(updateCards);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+    const [currentUser, setCurrentUser] = useState(null);
+    const [cards, setCards] = useState([]);
+
 
     const closeAllPopups = () => {
         setIsEditProfilePopupOpen(false);
