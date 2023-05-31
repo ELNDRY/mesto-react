@@ -14,17 +14,27 @@ export const App = () => {
     const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
 
+
     const handleEditAvatarClick = () => setisEditAvatarPopupOpen(true);
     const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
     const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
     const handleCardClick = (card) => setSelectedCard(card);
+    const handleCardLike = (card) => {
+        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        api.changeLikeCardStatus(card._id, !isLiked)
+            .then((newCard) => {
+                setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+            });
+    }
 
     const [currentUser, setCurrentUser] = useState(null);
+    const [cards, setCards] = useState([]);
 
     useEffect(() => {
-        Promise.all([api.getUserInfo()])
-            .then(([userInfo]) => {
+        Promise.all([api.getUserInfo(), api.getInitialCards()])
+            .then(([userInfo, initialCards]) => {
                 setCurrentUser(userInfo);
+                setCards(initialCards);
             })
             .catch((err) => {
                 console.error(`Ошибка: ${err}`);
@@ -43,10 +53,12 @@ export const App = () => {
             <div className="content">
                 <CurrentUserContext.Provider value={currentUser}>
                     <Header />
-                    <Main onEditProfile={handleEditProfileClick}
+                    <Main cards={carda}
+                        onEditProfile={handleEditProfileClick}
                         onEditAvatar={handleEditAvatarClick}
                         onAddPlace={handleAddPlaceClick}
                         onCardClick={handleCardClick}
+                        onCardLike={handleCardLike}
                     />
                     <Footer />
                     <PopupWithForm

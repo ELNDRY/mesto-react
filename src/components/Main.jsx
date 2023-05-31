@@ -3,18 +3,9 @@ import { api } from '../utils/api'
 import { Card } from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) => {
-    const [cards, setCards] = useState([]);
+export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike }) => {
     
     const currentUser = useContext(CurrentUserContext);
-
-    useEffect(() => {
-        Promise.all([api.getInitialCards()])
-            .then(([initialCards]) => {
-                setCards(initialCards);
-            })
-            .catch(error => console.log(error));
-    }, [])
 
     return (
         <main>
@@ -35,7 +26,7 @@ export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) =
             </section>
             <section className="elements">
                 <ul className="elements__list">
-                    {cards.map(card => <Card key={card._id} card={card} onCardClick={onCardClick} />)}
+                    {cards.map(card => <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} />)}
                 </ul>
             </section>
         </main>
