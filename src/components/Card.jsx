@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export const Card = ({ card, onCardClick, onCardLike, onCardDelete}) => {
+export const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
 
     const currentUser = useContext(CurrentUserContext);
 
@@ -18,12 +18,12 @@ export const Card = ({ card, onCardClick, onCardLike, onCardDelete}) => {
 
     return (
         <li className="element">
-            {isOwn && <button className="element__delete" type="button" aria-label="Удалить" onClick={handleCardDelete}/>}
+            {isOwn && <button className="element__delete" type="button" aria-label="Удалить" onClick={handleCardDelete} />}
             <img className="element__image" src={card?.link} alt={`Фотография: ${card?.name}.`} onClick={handleCardClick} />
             <div className="element__container">
                 <h2 className="element__text">{card?.name}</h2>
                 <div className="element__wrapper">
-                    <button className={cardLikeButtonClassName} type="button" aria-label="Нравится" onClick={handleCardLike}/>
+                    <button className={cardLikeButtonClassName} type="button" aria-label="Нравится" onClick={handleCardLike} />
                     <span className="element__counter">{card?.likes.length}</span>
                 </div>
             </div>

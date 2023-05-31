@@ -8,6 +8,7 @@ import { api } from '../utils/api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import { EditProfilePopup } from './EditProfilePopup'
 import { EditAvatarPopup } from './EditAvatarPopup'
+import { AddPlacePopup } from './AddPlacePopup'
 
 export const App = () => {
 
@@ -79,6 +80,17 @@ export const App = () => {
             })
     }
 
+    const handleAddPlace = (card) => {
+        api.addCard(card)
+            .then((newCard) => {
+                setCards([newCard, ...cards]);
+                setIsAddPlacePopupOpen(false);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
     return (
         <div className="page">
             <div className="content">
@@ -102,20 +114,7 @@ export const App = () => {
                     </PopupWithForm>
                     <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
                     <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-                    <PopupWithForm
-                        formName={'add-card'}
-                        formTitle={'Новое место'}
-                        isOpen={isAddPlacePopupOpen}
-                        onClose={closeAllPopups}
-                        buttonText={'Создать'}
-                    >
-                        <input id="card-name" name="name" className="popup__input popup__input_type_card-name" placeholder="Название"
-                            required minLength="2" maxLength="30" />
-                        <span className="popup__input-error card-name-error"></span>
-                        <input id="card-link" type="url" name="link" className="popup__input popup__input_type_card-link"
-                            placeholder="Ссылка на картинку" required />
-                        <span className="popup__input-error card-link-error"></span>
-                    </PopupWithForm>
+                    <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
                     <ImagePopup card={selectedCard} onClose={closeAllPopups} />
                 </CurrentUserContext.Provider>
             </div>

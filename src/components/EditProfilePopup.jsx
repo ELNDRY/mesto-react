@@ -20,8 +20,8 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
 
     useEffect(() => {
         if (!isOpen) {
-        setName(currentUser?.name);
-        setDescription(currentUser?.about);
+            setName(currentUser?.name);
+            setDescription(currentUser?.about);
         }
     }, [isOpen, currentUser]);
 
@@ -38,10 +38,10 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         onSubmit={handleSubmit}
     >
         <input id="name" name="name" className="popup__input popup__input_type_name" placeholder="Ваше имя" required
-            minLength="2" maxLength="40" onChange={handleNameChange} value={name}/>
+            minLength="2" maxLength="40" onChange={handleNameChange} value={name || ''} />
         <span className="popup__input-error name-error"></span>
         <input id="about" name="about" className="popup__input popup__input_type_description" placeholder="О себе" required
-            minLength="2" maxLength="200" onChange={handleDescriptionChange} value={description}/>
+            minLength="2" maxLength="200" onChange={handleDescriptionChange} value={description || ''} />
         <span className="popup__input-error about-error"></span>
     </PopupWithForm>)
 }
