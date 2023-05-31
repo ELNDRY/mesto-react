@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { api } from '../utils/api'
+import React, { useContext } from 'react'
 import { Card } from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike }) => {
-    
+export const Main = ({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike }) => {
+
     const currentUser = useContext(CurrentUserContext);
 
     return (
@@ -17,12 +16,12 @@ export const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onC
                     <div className="profile__info">
                         <div className="profile__name-container">
                             <h1 className="profile__name">{currentUser?.name}</h1>
-                            <button className="profile__edit-button" type="button" aria-label="Редактировать" onClick={onEditProfile}/>
+                            <button className="profile__edit-button" type="button" aria-label="Редактировать" onClick={onEditProfile} />
                         </div>
                         <p className="profile__description">{currentUser?.about}</p>
                     </div>
                 </div>
-                <button className="profile__add-button" type="button" aria-label="Добавить" onClick={onAddPlace}/>
+                <button className="profile__add-button" type="button" aria-label="Добавить" onClick={onAddPlace} />
             </section>
             <section className="elements">
                 <ul className="elements__list">

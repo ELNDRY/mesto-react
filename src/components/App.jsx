@@ -53,7 +53,7 @@ export const App = () => {
             <div className="content">
                 <CurrentUserContext.Provider value={currentUser}>
                     <Header />
-                    <Main cards={carda}
+                    <Main cards={cards}
                         onEditProfile={handleEditProfileClick}
                         onEditAvatar={handleEditAvatarClick}
                         onAddPlace={handleAddPlaceClick}
