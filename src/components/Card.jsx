@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export const Card = ({ card, onCardClick, onCardLike}) => {
+export const Card = ({ card, onCardClick, onCardLike, onCardDelete}) => {
 
     const currentUser = useContext(CurrentUserContext);
 
     const handleCardClick = () => onCardClick(card);
     const handleCardLike = () => onCardLike(card);
+    const handleCardDelete = () => onCardDelete(card);
 
     const isOwn = card.owner._id === currentUser._id;
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -17,7 +18,7 @@ export const Card = ({ card, onCardClick, onCardLike}) => {
 
     return (
         <li className="element">
-            {isOwn && <button className="element__delete" type="button" aria-label="Удалить" />}
+            {isOwn && <button className="element__delete" type="button" aria-label="Удалить" onClick={handleCardDelete}/>}
             <img className="element__image" src={card?.link} alt={`Фотография: ${card?.name}.`} onClick={handleCardClick} />
             <div className="element__container">
                 <h2 className="element__text">{card?.name}</h2>

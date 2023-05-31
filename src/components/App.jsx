@@ -26,6 +26,13 @@ export const App = () => {
                 setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
             });
     }
+    const handleCardDelete = (card) => {
+        api.deleteCard(card._id)
+        .then(()=> {
+            const updateCards = cards.filter((c) => card._id !== c._id);
+            setCards(updateCards);
+        })
+    }
 
     const [currentUser, setCurrentUser] = useState(null);
     const [cards, setCards] = useState([]);
@@ -59,6 +66,7 @@ export const App = () => {
                         onAddPlace={handleAddPlaceClick}
                         onCardClick={handleCardClick}
                         onCardLike={handleCardLike}
+                        onCardDelete={handleCardDelete}
                     />
                     <Footer />
                     <PopupWithForm
