@@ -6,6 +6,7 @@ import { PopupWithForm } from './PopupWithForm'
 import { ImagePopup } from './ImagePopup'
 import { api } from '../utils/api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { EditProfilePopup } from './EditProfilePopup'
 
 export const App = () => {
 
@@ -55,6 +56,17 @@ export const App = () => {
         setSelectedCard(null);
     }
 
+    const handleUpdateUser = (user) => {
+        api.editUserInfo(user)
+        .then((userInfo) => {
+            setCurrentUser(userInfo);
+            setIsEditProfilePopupOpen(false);
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+    }
+
     return (
         <div className="page">
             <div className="content">
@@ -76,20 +88,7 @@ export const App = () => {
                         buttonText={'Да'}
                     >
                     </PopupWithForm>
-                    <PopupWithForm
-                        formName={'profile'}
-                        formTitle={'Редактировать профиль'}
-                        isOpen={isEditProfilePopupOpen}
-                        onClose={closeAllPopups}
-                        buttonText={'Сохранить'}
-                    >
-                        <input id="name" name="name" className="popup__input popup__input_type_name" placeholder="Ваше имя" required
-                            minLength="2" maxLength="40" />
-                        <span className="popup__input-error name-error"></span>
-                        <input id="about" name="about" className="popup__input popup__input_type_description" placeholder="О себе" required
-                            minLength="2" maxLength="200" />
-                        <span className="popup__input-error about-error"></span>
-                    </PopupWithForm>
+                    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
                     <PopupWithForm
                         formName={'avatar'}
                         formTitle={'Обновить аватар'}
