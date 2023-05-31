@@ -7,6 +7,7 @@ import { ImagePopup } from './ImagePopup'
 import { api } from '../utils/api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import { EditProfilePopup } from './EditProfilePopup'
+import { EditAvatarPopup } from './EditAvatarPopup'
 
 export const App = () => {
 
@@ -29,10 +30,10 @@ export const App = () => {
     }
     const handleCardDelete = (card) => {
         api.deleteCard(card._id)
-        .then(()=> {
-            const updateCards = cards.filter((c) => card._id !== c._id);
-            setCards(updateCards);
-        })
+            .then(() => {
+                const updateCards = cards.filter((c) => card._id !== c._id);
+                setCards(updateCards);
+            })
     }
 
     const [currentUser, setCurrentUser] = useState(null);
@@ -58,13 +59,24 @@ export const App = () => {
 
     const handleUpdateUser = (user) => {
         api.editUserInfo(user)
-        .then((userInfo) => {
-            setCurrentUser(userInfo);
-            setIsEditProfilePopupOpen(false);
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+            .then((userInfo) => {
+                setCurrentUser(userInfo);
+                setIsEditProfilePopupOpen(false);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+    const handleUpdateAvatar = (avatar) => {
+        api.editUserAvatar(avatar)
+            .then((newAvatar) => {
+                setCurrentUser(newAvatar);
+                setisEditAvatarPopupOpen(false);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
     }
 
     return (
@@ -88,18 +100,8 @@ export const App = () => {
                         buttonText={'Да'}
                     >
                     </PopupWithForm>
-                    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
-                    <PopupWithForm
-                        formName={'avatar'}
-                        formTitle={'Обновить аватар'}
-                        isOpen={isEditAvatarPopupOpen}
-                        onClose={closeAllPopups}
-                        buttonText={'Сохранить'}
-                    >
-                        <input id="avatar" type="url" name="avatar" className="popup__input popup__input_type_avatar-link"
-                            placeholder="Ссылка на картинку" required />
-                        <span className="popup__input-error avatar-error"></span>
-                    </PopupWithForm>
+                    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+                    <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
                     <PopupWithForm
                         formName={'add-card'}
                         formTitle={'Новое место'}

@@ -29,7 +29,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         onUpdateUser({ name, about: description });
     }
 
-    return <PopupWithForm
+    return (<PopupWithForm
         formName={'profile'}
         formTitle={'Редактировать профиль'}
         isOpen={isOpen}
@@ -43,5 +43,5 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         <input id="about" name="about" className="popup__input popup__input_type_description" placeholder="О себе" required
             minLength="2" maxLength="200" onChange={handleDescriptionChange} value={description}/>
         <span className="popup__input-error about-error"></span>
-    </PopupWithForm>
+    </PopupWithForm>)
 }
